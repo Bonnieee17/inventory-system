@@ -3,5 +3,11 @@
   "outputDirectory": "client/dist/inventory-client",
   "framework": "angular",
   "installCommand": "npm install --legacy-peer-deps --prefix client",
-  "devCommand": "ng serve --prefix client"
+  "devCommand": "ng serve --prefix client",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
