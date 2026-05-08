@@ -1,0 +1,10 @@
+{
+  "buildCommand": "cd client && npm ci --legacy-peer-deps && npm run build",
+  "outputDirectory": "client/dist/inventory-client",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
