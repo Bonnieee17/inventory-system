@@ -1,0 +1,6 @@
+{
+  "buildCommand": "npm run build --prefix client",
+  "outputDirectory": "client/dist/inventory-client",
+  "framework": "angular",
+  "installCommand": "npm install --legacy-peer-deps --prefix client"
+}
