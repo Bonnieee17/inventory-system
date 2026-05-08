@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://your-app.onrender.com/api',
+  apiUrl: 'https://inventory-system-geid.onrender.com'
 };
