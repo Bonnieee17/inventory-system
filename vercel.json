@@ -1,9 +1,7 @@
 {
-  "buildCommand": "npm run build --prefix client",
+  "buildCommand": "cd client && npm install --legacy-peer-deps && npm run build",
   "outputDirectory": "client/dist/inventory-client",
   "framework": "angular",
-  "installCommand": "npm install --legacy-peer-deps --prefix client",
-  "devCommand": "ng serve --prefix client",
   "rewrites": [
     {
       "source": "/(.*)",
