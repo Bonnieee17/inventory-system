@@ -10,6 +10,9 @@
     "seed": "ts-node-dev seed.ts",
     "add-images": "ts-node-dev add-images.ts",
     "verify-images": "ts-node-dev verify-images.ts",
+    "reset-products": "ts-node-dev reset-products.ts",
+    "create-admin": "ts-node-dev create-admin.ts",
+    "add-new-products": "ts-node-dev add-new-products.ts",
     "lint": "eslint src/**/*.ts"
   },
   "dependencies": {

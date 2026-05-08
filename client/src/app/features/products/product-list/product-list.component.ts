@@ -82,7 +82,14 @@ import { Product, PaginationMeta } from '../../../core/models';
       } @else {
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-6">
           @for (product of products(); track product.id) {
-            <div class="card group hover:shadow-md transition-shadow p-0 overflow-hidden">
+            <div class="card group hover:shadow-md transition-shadow p-0 overflow-hidden relative">
+              <!-- Low Stock Badge -->
+              @if (product.quantity <= 10) {
+                <div class="absolute top-2 left-2 z-10">
+                  <span class="badge-low-stock">⚠️ Low Stock</span>
+                </div>
+              }
+              
               <!-- Image -->
               <div class="h-40 bg-gray-100 overflow-hidden">
                 @if (product.image_url) {
@@ -111,7 +118,7 @@ import { Product, PaginationMeta } from '../../../core/models';
 
                 <div class="flex items-center justify-between">
                   <span class="text-base font-bold text-blue-600">₱{{ product.price | number:'1.2-2' }}</span>
-                  <span class="text-xs text-gray-500">{{ product.quantity }} in stock</span>
+                  <span [class.text-red-600]="product.quantity <= 10" class="text-xs font-medium">{{ product.quantity }} in stock</span>
                 </div>
 
                 <div class="mt-3 flex gap-2">
@@ -121,8 +128,14 @@ import { Product, PaginationMeta } from '../../../core/models';
                   </a>
                   @if (isAdmin()) {
                     <a [routerLink]="['/products', product.id, 'edit']"
-                      class="flex-1 text-center text-xs py-1.5 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors">
-                      Edit
+                      [class.bg-red-100]="product.quantity <= 10"
+                      [class.text-red-700]="product.quantity <= 10"
+                      [class.hover:bg-red-200]="product.quantity <= 10"
+                      [class.bg-blue-50]="product.quantity > 10"
+                      [class.text-blue-700]="product.quantity > 10"
+                      [class.hover:bg-blue-100]="product.quantity > 10"
+                      class="flex-1 text-center text-xs py-1.5 rounded-lg font-medium transition-colors">
+                      {{ product.quantity <= 10 ? 'Edit⚠️' : 'Edit' }}
                     </a>
                     <button (click)="deleteProduct(product)"
                       class="flex-1 text-xs py-1.5 bg-red-50 text-red-700 rounded-lg hover:bg-red-100 transition-colors">
