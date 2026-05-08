@@ -15,7 +15,7 @@ const options: swaggerJsdoc.Options = {
     servers: [
       {
         url: process.env.NODE_ENV === 'production'
-          ? 'https://your-app.onrender.com/api'
+          ? 'https://inventory-system-geid.onrender.com/api'
           : 'http://localhost:5000/api',
         description: process.env.NODE_ENV === 'production' ? 'Production' : 'Development',
       },
