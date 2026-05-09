@@ -14,10 +14,12 @@ const options: swaggerJsdoc.Options = {
     },
     servers: [
       {
-        url: process.env.NODE_ENV === 'production'
-          ? 'https://inventory-system-geid.onrender.com/api'
-          : 'http://localhost:5000/api',
-        description: process.env.NODE_ENV === 'production' ? 'Production' : 'Development',
+        url: 'https://inventory-system-api-0yqd.onrender.com/api',
+        description: 'Production',
+      },
+      {
+        url: 'http://localhost:5000/api',
+        description: 'Development',
       },
     ],
     components: {
