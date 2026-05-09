@@ -72,18 +72,16 @@ app.use('/api/users', user_routes_1.default);
 // ─── Error Handling ───────────────────────────────────────────────────────────
 app.use(error_middleware_1.notFound);
 app.use(error_middleware_1.errorHandler);
-// ─── Start Server (only in non-serverless environments) ───────────────────────
-if (process.env.NODE_ENV !== 'production') {
-    app.listen(PORT, () => {
-        console.log(`
+// ─── Start Server ─────────────────────────────────────────────────────────────
+app.listen(PORT, () => {
+    console.log(`
   ┌─────────────────────────────────────────┐
   │  🚀 Inventory API Server Running        │
   │  Port    : ${PORT}                         │
   │  Env     : ${process.env.NODE_ENV || 'development'}               │
   │  Docs    : http://localhost:${PORT}/api/docs │
   └─────────────────────────────────────────┘
-    `);
-    });
-}
+  `);
+});
 exports.default = app;
 //# sourceMappingURL=index.js.map
