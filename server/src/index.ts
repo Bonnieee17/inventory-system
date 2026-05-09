@@ -79,18 +79,16 @@ app.use('/api/users', userRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-// ─── Start Server (only in non-serverless environments) ───────────────────────
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => {
-    console.log(`
+// ─── Start Server ─────────────────────────────────────────────────────────────
+app.listen(PORT, () => {
+  console.log(`
   ┌─────────────────────────────────────────┐
   │  🚀 Inventory API Server Running        │
   │  Port    : ${PORT}                         │
   │  Env     : ${process.env.NODE_ENV || 'development'}               │
   │  Docs    : http://localhost:${PORT}/api/docs │
   └─────────────────────────────────────────┘
-    `);
-  });
-}
+  `);
+});
 
 export default app;
