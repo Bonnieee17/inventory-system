@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const ws = require('ws');
 
 const supabaseUrl = process.env.SUPABASE_URL!;
@@ -21,13 +21,13 @@ export const supabase = createClient(supabaseUrl, supabaseServiceKey, {
   },
   realtime: {
     transport: ws,
-  },
+  } as any,
 });
 
 export const supabaseAnon = createClient(supabaseUrl, supabaseAnonKey, {
   realtime: {
     transport: ws,
-  },
+  } as any,
 });
 
 export default supabase;
