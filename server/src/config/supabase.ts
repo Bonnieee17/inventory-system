@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
+import ws from 'ws';
 
 dotenv.config();
 
@@ -17,9 +18,16 @@ export const supabase = createClient(supabaseUrl, supabaseServiceKey, {
     autoRefreshToken: false,
     persistSession: false,
   },
+  realtime: {
+    transport: ws,
+  },
 });
 
 // Anon client (respects RLS)
-export const supabaseAnon = createClient(supabaseUrl, supabaseAnonKey);
+export const supabaseAnon = createClient(supabaseUrl, supabaseAnonKey, {
+  realtime: {
+    transport: ws,
+  },
+});
 
 export default supabase;
