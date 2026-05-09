@@ -15,18 +15,25 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// ─── Handle Preflight Requests ────────────────────────────────────────────────
+app.use((req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    return res.status(200).json({});
+  }
+  next();
+});
+
 // ─── Middleware ────────────────────────────────────────────────────────────────
 app.use(cors({
-  origin: [
-    process.env.CLIENT_URL || 'http://localhost:4200',
-    'http://localhost:4200',
-    /\.vercel\.app$/,
-    /\.netlify\.app$/,
-  ],
-  credentials: true,
+  origin: '*',
+  credentials: false,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+app.options('*', cors());
 
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 app.use(express.json({ limit: '10mb' }));
@@ -72,16 +79,18 @@ app.use('/api/users', userRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-// ─── Start Server ─────────────────────────────────────────────────────────────
-app.listen(PORT, () => {
-  console.log(`
+// ─── Start Server (only in non-serverless environments) ───────────────────────
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`
   ┌─────────────────────────────────────────┐
   │  🚀 Inventory API Server Running        │
   │  Port    : ${PORT}                         │
   │  Env     : ${process.env.NODE_ENV || 'development'}               │
   │  Docs    : http://localhost:${PORT}/api/docs │
   └─────────────────────────────────────────┘
-  `);
-});
+    `);
+  });
+}
 
 export default app;

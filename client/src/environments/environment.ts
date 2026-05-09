@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  // updated
-  apiUrl: 'https://inventory-system-geid.onrender.com'
+  apiUrl: 'https://inventory-system-geid.onrender.com/api'
 };
+ 
