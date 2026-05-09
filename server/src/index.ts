@@ -81,14 +81,14 @@ app.use(errorHandler);
 
 // ─── Start Server ─────────────────────────────────────────────────────────────
 app.listen(PORT, () => {
+  const baseUrl = process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`;
   console.log(`
   ┌─────────────────────────────────────────┐
   │  🚀 Inventory API Server Running        │
   │  Port    : ${PORT}                         │
   │  Env     : ${process.env.NODE_ENV || 'development'}               │
-  │  Docs    : http://localhost:${PORT}/api/docs │
+  │  Docs    : ${baseUrl}/api/docs │
   └─────────────────────────────────────────┘
   `);
 });
-
 export default app;
