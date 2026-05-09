@@ -1,8 +1,10 @@
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
-import ws from 'ws';
 
 dotenv.config();
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const ws = require('ws');
 
 const supabaseUrl = process.env.SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY!;
@@ -12,7 +14,6 @@ if (!supabaseUrl || !supabaseServiceKey) {
   throw new Error('Missing Supabase environment variables');
 }
 
-// Service client for backend operations (bypasses RLS)
 export const supabase = createClient(supabaseUrl, supabaseServiceKey, {
   auth: {
     autoRefreshToken: false,
@@ -23,7 +24,6 @@ export const supabase = createClient(supabaseUrl, supabaseServiceKey, {
   },
 });
 
-// Anon client (respects RLS)
 export const supabaseAnon = createClient(supabaseUrl, supabaseAnonKey, {
   realtime: {
     transport: ws,
