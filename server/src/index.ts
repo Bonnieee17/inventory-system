@@ -41,18 +41,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // ─── Home Route ───────────────────────────────────────────────────────────────
 app.get('/', (req, res) => {
-  res.json({
-    success: true,
-    message: '🚀 Inventory API is running!',
-    version: '1.0.0',
-    endpoints: {
-      health: '/health',
-      docs: '/api-docs',
-      auth: '/api/auth',
-      products: '/api/products',
-      users: '/api/users',
-    }
-  });
+  res.redirect(301, '/api-docs');
 });
 
 // ─── Health Check ──────────────────────────────────────────────────────────────
