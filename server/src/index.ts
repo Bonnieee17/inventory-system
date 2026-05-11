@@ -47,7 +47,7 @@ app.get('/', (req, res) => {
     version: '1.0.0',
     endpoints: {
       health: '/health',
-      docs: '/api/docs',
+      docs: '/api-docs',
       auth: '/api/auth',
       products: '/api/products',
       users: '/api/users',
@@ -65,10 +65,16 @@ app.get('/health', (req, res) => {
 });
 
 // ─── API Docs ──────────────────────────────────────────────────────────────────
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+// Primary: /api-docs
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
   customCss: '.swagger-ui .topbar { display: none }',
   customSiteTitle: 'Inventory API Docs',
 }));
+
+// Legacy: /api/docs → redirect to /api-docs
+app.get('/api/docs', (req, res) => {
+  res.redirect(301, '/api-docs');
+});
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
 app.use('/api/auth', authRoutes);
@@ -87,8 +93,9 @@ app.listen(PORT, () => {
   │  🚀 Inventory API Server Running        │
   │  Port    : ${PORT}                         │
   │  Env     : ${process.env.NODE_ENV || 'development'}               │
-  │  Docs    : ${baseUrl}/api/docs │
+  │  Docs    : ${baseUrl}/api-docs │
   └─────────────────────────────────────────┘
   `);
 });
+
 export default app;
